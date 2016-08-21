@@ -127,7 +127,7 @@ def download():
         time_title = "Year"
     else:
         time_title = "Timestamp"
-    header = [[key + ":" + str(value) for key, value in query.items()],
+    header = [[("***Duplicate timestamps represent multiple loggers - sort by date if needed")],
               (time_title, "Temperature")]
     query_results = header + db_connection.get_query_raw_results(session['db_query'])
     db_connection.close()
