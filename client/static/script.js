@@ -47,7 +47,7 @@ $(function() {
                 $('#selected-metadata').append('<strong>Zero Records Found for Current Selection!</strong>');   
             }
             var query_field1_selected = $("#dropdown_menu_biomimic_type option:selected").text()
-            if (query_field1_selected == "Please select Biomimic Type"){
+            if (query_field1_selected == "Please select Logger Type"){
                 $("#dropdown_menu_country_name").prop('disabled' , true);
             }
             else{
@@ -114,7 +114,7 @@ $(function() {
             }
             // update state_province field
             var result = data["result"]
-            $("#dropdown_menu_state_name").append('<option value="">Please select State Name</option>')
+            $("#dropdown_menu_state_name").append('<option value="">Please select Region Name</option>')
             $.each(result, function(index, state_province) {
                 $("#dropdown_menu_state_name").append('<option value=\"' + state_province + '\">' + state_province + '</option>')
             });
@@ -158,7 +158,7 @@ $(function() {
                 $('#selected-metadata').append('<strong>Zero Records Found for Current Selection!</strong>');   
             }
             var query_field3_selected = $("#dropdown_menu_state_name option:selected").text()
-            if (query_field3_selected == "Please select State Name"){
+            if (query_field3_selected == "Please select Region Name"){
                 $("#dropdown_menu_location_name").prop('disabled' , true);
             }
             else{
@@ -260,7 +260,7 @@ $(function() {
             }
             // update sub_zone field
             var result = data["result"]
-            $("#dropdown_menu_sub_zone_name").append('<option value="">Please select Sub Zone</option>')
+            $("#dropdown_menu_sub_zone_name").append('<option value="">Please select Substrate</option>')
             $("#dropdown_menu_sub_zone_name").append('<option value="1">All</option>')
             $.each(result, function(index, sub_zone) {
                 $("#dropdown_menu_sub_zone_name").append('<option value=\"' + sub_zone + '\">' + sub_zone + '</option>')
@@ -299,7 +299,7 @@ $(function() {
                 $('#selected-metadata').append('<strong>Zero Records Found for Current Selection!</strong>');   
             }
             var query_field6_selected = $("#dropdown_menu_sub_zone_name option:selected").text()
-            if (query_field6_selected == "Please select Sub Zone"){
+            if (query_field6_selected == "Please select Substrate"){
                 $("#dropdown_menu_wave_exp_name").prop('disabled' , true);
                 $("#dropdown_menu_output_type_name").prop('disabled' , true);
             }
@@ -344,12 +344,12 @@ $(function() {
         var query_field10 = $("#dropdown_menu_output_type_name option:selected").text()
         var query_field11 = $("#dropdown_menu_analysis_type_name option:selected").val()
         var valid = false
-        if ((query_field1 != "Please select Biomimic Type") && 
+        if ((query_field1 != "Please select Logger Type") && 
             (query_field2 != "Please select Country Name") && 
-            (query_field3 != "Please select State Name") && 
+            (query_field3 != "Please select Region Name") && 
             (query_field4 != "Please select Location Name") && 
             (query_field5 != "Please select Zone Name") && 
-            (query_field6 != "Please select Sub Zone") && 
+            (query_field6 != "Please select Substrate") && 
             (query_field7 != "Please select Wave Exposure")){
                 if (isChecked){
                     var query_field8 = $("#date_pick_from").val()
