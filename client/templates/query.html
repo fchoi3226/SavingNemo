@@ -33,6 +33,8 @@
                 <div class="collapse navbar-collapse" id="myNavbar">
                     <ul class="nav navbar-nav">
                         <li><a href="http://www.northeastern.edu/helmuthlab/index.html"><span class="glyphicon glyphicon-home"></span> <strong>Back to Helmuth lab Home</strong></a></li>
+                        <li><a href="https://www.northeastern.edu/helmuthlab/Research/databases/metadata.xls" target="_blank"><span class="glyphicon glyphicon-upload"></span> <strong>Metadata</strong></a></li>
+                        <li><a href="https://www.dropbox.com/sh/lmf6iw0tvdcvi5p/AAA0AGXjDrNqtn1A1kgJd5jYa?dl=0"><span class="glyphicon glyphicon-upload"></span> <strong>Site Parser Tool</strong></a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         {% if not session.logged_in %}
@@ -57,7 +59,7 @@
             <h1>DATABASE<h1>
         </div>
         <div class="container text-right">            
-            <a href="#" data-toggle="popover" data-placement="left" class= "btn btn-info" data-trigger="hover" data-content="Please click and choose an option from each select field in the following order: Biomimic type, Country, State, Location, Zone, Sub Zone, Wave exposure and Statistic">
+            <a href="#" data-toggle="popover" data-placement="left" class= "btn btn-info" data-trigger="hover" data-content="Please click and choose an option from each select field in the following order: Logger type, Country, Region, Site, Zone, Substrate, Wave exposure and Statistic">
                 <span class="glyphicon glyphicon-question-sign"></span> Help
             </a>
         </div>
@@ -73,7 +75,7 @@
                             <img src="../static/spinner.gif" alt="Loading.." id="spinner-biomimic" hidden>
                         </div>                        
                         <select id ="dropdown_menu_biomimic_type" class="form-control" required>
-                            <option value="">Please select Biomimic Type</option>
+                            <option value="">Please select Logger Type</option>
                             {% for type in form.biomimic_type %}
                                 <option value="{{ type }}">{{ type[1] }}</option>
                             {% endfor %}
@@ -95,7 +97,7 @@
                             <img src="../static/spinner.gif" alt="Loading.." id="spinner-state" hidden>
                         </div>
                         <select id ="dropdown_menu_state_name" class="form-control" required disabled>
-                            <option value="">Please select State Name</option>
+                            <option value="">Please select Region Name</option>
                         </select>                                                   
                     </div>
                     <div class="col-md-3 form-group" id="dropdown_menu_location_name_div">
@@ -104,7 +106,7 @@
                             <img src="../static/spinner.gif" alt="Loading.." id="spinner-location" hidden>
                         </div>                        
                         <select id ="dropdown_menu_location_name" class="form-control" required disabled>
-                            <option value="">Please select Location Name</option>
+                            <option value="">Please select Site Name</option>
                         </select>
                     </div>
                 </div>
@@ -126,7 +128,7 @@
                             <img src="../static/spinner.gif" alt="Loading.." id="spinner-sub-zone" hidden>
                         </div>                                                                        
                         <select id ="dropdown_menu_sub_zone_name" class="form-control" required disabled>
-                            <option value="">Please select Sub Zone</option>
+                            <option value="">Please select Substrate</option>
                         </select>
                     </div>
                     <div class="col-md-4 form-group" id="dropdown_menu_wave_exp_name_div">
@@ -149,6 +151,7 @@
                                 {{ type }}
                             {% endfor%}
                         </select>
+                        <strong class="text-danger"><em>Please sort Raw data by date after Download</em></strong>
                     </div>
                     <div class="col-md-4 form-group" id="frequency-select">
                     </div>
