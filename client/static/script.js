@@ -166,7 +166,7 @@ $(function() {
             }
             // update location field
             var result = data["result"]
-            $("#dropdown_menu_location_name").append('<option value="">Please select Location Name</option>')
+            $("#dropdown_menu_location_name").append('<option value="">Please select Site Name</option>')
             $.each(result, function(index, location) {
                 $("#dropdown_menu_location_name").append('<option value=\"' + location + '\">' + location + '</option>')
             });
@@ -209,7 +209,7 @@ $(function() {
                 $('#selected-metadata').append('<strong>Zero Records Found for Current Selection!</strong>');   
             }
             var query_field4_selected = $("#dropdown_menu_location_name option:selected").text()
-            if (query_field4_selected == "Please select Location Name"){
+            if (query_field4_selected == "Please select Site Name"){
                 $("#dropdown_menu_zone_name").prop('disabled' , true);
             }
             else{
@@ -347,7 +347,7 @@ $(function() {
         if ((query_field1 != "Please select Logger Type") && 
             (query_field2 != "Please select Country Name") && 
             (query_field3 != "Please select Region Name") && 
-            (query_field4 != "Please select Location Name") && 
+            (query_field4 != "Please select Site Name") && 
             (query_field5 != "Please select Zone Name") && 
             (query_field6 != "Please select Substrate") && 
             (query_field7 != "Please select Wave Exposure")){
