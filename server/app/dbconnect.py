@@ -174,7 +174,7 @@ class DbConnect(object):
             temp_field = "AVG(temp.Temp_C)"
         else:                                               # Raw
             temp_field = "temp.Temp_C"
-
+            log_field = "log.microsite_id"
         if analysis_type == "Daily":                        # Daily
             date_field = "DATE_FORMAT(temp.Time_GMT, '%m/%d/%Y')"
         elif analysis_type == "Monthly":                    # Monthly
@@ -183,7 +183,7 @@ class DbConnect(object):
             date_field = "YEAR(temp.Time_GMT)"
         else:                                               # Raw, no change
             date_field = "temp.Time_GMT"
-        query = """SELECT %s, %s
+        query = """SELECT %s, %s, %s
                    FROM `cnx_logger` log
                    INNER JOIN `cnx_logger_biomimic_type` biotype
                    ON biotype.`biomimic_id` = log.`biomimic_id`
@@ -192,12 +192,12 @@ class DbConnect(object):
                    INNER JOIN `cnx_logger_properties` prop
                    ON prop.`prop_id` = log.`prop_id`
                    INNER JOIN `cnx_logger_temperature` temp
-                   ON temp.`logger_id` = log.`logger_id` """ % (date_field, temp_field)
+                   ON temp.`logger_id` = log.`logger_id` """ % (date_field, temp_field, log_field)
         where_condition = self.build_where_condition(query_dict)
         cursor.execute(query + where_condition + " LIMIT 10 ")
         results = cursor.fetchall()
         results = list(results)
-        final_result = [[result[0], round(result[1], 4)] for result in results]
+        final_result = [[result[0], round(result[1], 4), result[2]] for result in results]
         cursor.close()
         return final_result, query + where_condition
 
@@ -207,7 +207,7 @@ class DbConnect(object):
         cursor.execute(db_query)
         results = cursor.fetchall()
         results = list(results)
-        final_result = [[result[0], round(result[1], 4)] for result in results]
+        final_result = [[result[0], round(result[1], 4), result[2]] for result in results]
         cursor.close()
         return final_result
 
