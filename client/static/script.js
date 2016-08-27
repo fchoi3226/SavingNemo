@@ -424,7 +424,7 @@ $(function() {
                     title.append("<h4>Data preview</h4>")
                     options.append("<thead><tr><th>" + tableheader() + "</th><th>Temperature (in Celsius)</th></tr></thead><tbody>")
                     $.each(data.list_of_results, function(key, value) {
-                        options.append("<tr><td>" + value[0] + "</td><td>" + value[1] + "</td></tr>")
+                        options.append("<tr><td>" + value[0] + "</td><td>" + value[1] + "</td></tr>" + value[2] + "</td></tr>")
                     });
                     options.append("</tbody>")
                         options.append("</table>")
