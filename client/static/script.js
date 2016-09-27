@@ -59,7 +59,7 @@ $(function() {
                 $("#dropdown_menu_country_name").append('<option value=\"' + country + '\">' + country + '</option>')
             });
             // update zone field
-            $("#dropdown_menu_zone_name").append('<option value="">Please select Zone Name</option>')
+            $("#dropdown_menu_zone_name").append('<option value="">Please select Reef</option>')
             $("#dropdown_menu_zone_name").append('<option value="1">All</option>')
             $.each(zone_list, function(index, zone){
                 $("#dropdown_menu_zone_name").append('<option value=\"' + zone + '\">' + zone + '</option>')
@@ -252,7 +252,7 @@ $(function() {
                 $('#selected-metadata').append('<strong>Zero Records Found for Current Selection!</strong>');   
             }
             var query_field5_selected = $("#dropdown_menu_zone_name option:selected").text()
-            if (query_field5_selected == "Please select Zone Name"){
+            if (query_field5_selected == "Please select Reef"){
                 $("#dropdown_menu_sub_zone_name").prop('disabled' , true);
             }
             else{
@@ -348,7 +348,7 @@ $(function() {
             (query_field2 != "Please select Country Name") && 
             (query_field3 != "Please select District Name") && 
             (query_field4 != "Please select Site Name") && 
-            (query_field5 != "Please select Zone Name") && 
+            (query_field5 != "Please select Reef") && 
             (query_field6 != "Please select Substrate") && 
             (query_field7 != "Please select Wave Exposure")){
                 if (isChecked){
