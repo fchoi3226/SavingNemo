@@ -127,7 +127,7 @@ def download():
         time_title = "Year"
     else:
         time_title = "Timestamp"
-    header = [("Output type", "Logger Type", "Country", "Region", "Site", "Tidal zone", "Substrate type", "Wave exposure"), 
+    header = [("Output type", "Logger Type", "Country", "District", "Site", "Reef", "Reef Location", "Depth"), 
                 [query["output_type"], query["biomimic_type"], query["country"], query["state_province"], query["location"],  query["zone"],  query["sub_zone"],  query["wave_exp"]], 
                 (time_title, "Temperature")]
     query_results = header + db_connection.get_query_raw_results(session['db_query'])
