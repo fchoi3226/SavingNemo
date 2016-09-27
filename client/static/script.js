@@ -114,7 +114,7 @@ $(function() {
             }
             // update state_province field
             var result = data["result"]
-            $("#dropdown_menu_state_name").append('<option value="">Please select Region Name</option>')
+            $("#dropdown_menu_state_name").append('<option value="">Please select District Name</option>')
             $.each(result, function(index, state_province) {
                 $("#dropdown_menu_state_name").append('<option value=\"' + state_province + '\">' + state_province + '</option>')
             });
@@ -158,7 +158,7 @@ $(function() {
                 $('#selected-metadata').append('<strong>Zero Records Found for Current Selection!</strong>');   
             }
             var query_field3_selected = $("#dropdown_menu_state_name option:selected").text()
-            if (query_field3_selected == "Please select Region Name"){
+            if (query_field3_selected == "Please select District Name"){
                 $("#dropdown_menu_location_name").prop('disabled' , true);
             }
             else{
@@ -346,7 +346,7 @@ $(function() {
         var valid = false
         if ((query_field1 != "Please select Logger Type") && 
             (query_field2 != "Please select Country Name") && 
-            (query_field3 != "Please select Region Name") && 
+            (query_field3 != "Please select District Name") && 
             (query_field4 != "Please select Site Name") && 
             (query_field5 != "Please select Zone Name") && 
             (query_field6 != "Please select Substrate") && 
