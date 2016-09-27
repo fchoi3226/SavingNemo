@@ -309,7 +309,7 @@ $(function() {
             }
             // update wave_exp field
             var result = data["result"]
-            $("#dropdown_menu_wave_exp_name").append('<option value="">Please select Wave Exposure</option>')
+            $("#dropdown_menu_wave_exp_name").append('<option value="">Please select Depth (ft)</option>')
             $("#dropdown_menu_wave_exp_name").append('<option value="1">All</option>')
             $.each(result, function(index, wave_exp) {
                 $("#dropdown_menu_wave_exp_name").append('<option value=\"' + wave_exp + '\">' + wave_exp + '</option>')
@@ -350,7 +350,7 @@ $(function() {
             (query_field4 != "Please select Site Name") && 
             (query_field5 != "Please select Reef") && 
             (query_field6 != "Please select Reef Location") && 
-            (query_field7 != "Please select Wave Exposure")){
+            (query_field7 != "Please select Depth(ft)")){
                 if (isChecked){
                     var query_field8 = $("#date_pick_from").val()
                     var query_field9 = $("#date_pick_to").val()
