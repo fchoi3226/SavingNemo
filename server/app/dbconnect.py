@@ -44,18 +44,8 @@ class DbConnect(object):
                    WHERE biotype.`biomimic_type`=\'%s\'""" % query_dict['biomimic_type']
         cursor.execute(query + " ORDER BY 1 ASC")
         result = cursor.fetchall()
-        country_list = [row[0] for row in result]
-        query = """SELECT DISTINCT prop.zone FROM `cnx_logger` log
-                   INNER JOIN `cnx_logger_biomimic_type` biotype
-                   ON biotype.`biomimic_id`=log.`biomimic_id`
-                   INNER JOIN `cnx_logger_properties` prop
-                   ON prop.`prop_id`=log.`prop_id`
-                   WHERE biotype.biomimic_type=\'%s\'""" % query_dict['biomimic_type']
-        cursor.execute(query + " ORDER BY 1 ASC")
-        result = cursor.fetchall()
-        zone_list = [row[0] for row in result]
-        cursor.close()
-        final_result = {"country": country_list, "zone": zone_list}
+        final_result = [row[0] for row in result]
+	cursor.close()
         count_records, min_date, max_date = self.fetch_metadata(query_dict)
         return final_result, count_records, min_date, max_date
 
