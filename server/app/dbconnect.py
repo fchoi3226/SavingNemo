@@ -84,6 +84,32 @@ class DbConnect(object):
         count_records, min_date, max_date = self.fetch_metadata(query_dict)
         return final_result, count_records, min_date, max_date
 
+    def fetch_distinct_zones(self, query_dict):
+        """ Fetches Distinct zone for selected biomimic type, country
+            and state_province and location"""
+        cursor = self.connection.cursor()
+        query = """SELECT DISTINCT prop.zone FROM `cnx_logger` log
+                   INNER JOIN `cnx_logger_biomimic_type` biotype
+                   ON biotype.`biomimic_id`=log.`biomimic_id`
+                   INNER JOIN `cnx_logger_properties` prop
+                   ON prop.`prop_id`=log.`prop_id`
+                   WHERE biotype.biomimic_type=\'%s\'""" % query_dict['biomimic_type']	
+	
+	
+	query = """SELECT DISTINCT geo.location
+                   FROM `cnx_logger` log
+                   INNER JOIN `cnx_logger_biomimic_type` biotype
+                   ON  biotype.`biomimic_id`=log.`biomimic_id`
+                   INNER JOIN `cnx_logger_geographics` geo
+                   ON geo.`geo_id`=log.`geo_id` """
+        where_condition = self.build_where_condition(query_dict)
+        cursor.execute(query + where_condition + " ORDER BY 1 ASC")
+        result = cursor.fetchall()
+        final_result = [row[0] for row in result]
+        cursor.close()
+        count_records, min_date, max_date = self.fetch_metadata(query_dict)
+        return final_result, count_records, min_date, max_date
+
     def fetch_distinct_sub_zones(self, query_dict):
         """ Fetches Distinct Subzones for selected biomimic type, country,
             state_province, location and zones"""
