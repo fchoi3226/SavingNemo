@@ -49,23 +49,6 @@ class DbConnect(object):
         count_records, min_date, max_date = self.fetch_metadata(query_dict)
         return final_result, count_records, min_date, max_date
 
-    def fetch_distinct_states(self, query_dict):
-        """Fetches Distinct states for selected biomimic type and country"""
-        cursor = self.connection.cursor()
-        query = """SELECT DISTINCT geo.state_province
-                   FROM `cnx_logger` log
-                   INNER JOIN `cnx_logger_biomimic_type` biotype
-                   ON biotype.`biomimic_id`=log.`biomimic_id`
-                   INNER JOIN `cnx_logger_geographics` geo
-                   ON geo.`geo_id`=log.`geo_id` """
-        where_condition = self.build_where_condition(query_dict)
-        cursor.execute(query + where_condition + " ORDER BY 1 ASC")
-        result = cursor.fetchall()
-        final_result = [row[0] for row in result]
-        cursor.close()
-        count_records, min_date, max_date = self.fetch_metadata(query_dict)
-        return final_result, count_records, min_date, max_date
-
     def fetch_distinct_locations(self, query_dict):
         """ Fetches Distinct locations for selected biomimic type, country
             and state_province"""
@@ -88,20 +71,14 @@ class DbConnect(object):
         """ Fetches Distinct zone for selected biomimic type, country
             and state_province and location"""
         cursor = self.connection.cursor()
-        query = """SELECT DISTINCT prop.zone FROM `cnx_logger` log
+        query = """SELECT DISTINCT prop.zone 
+		   FROM `cnx_logger` log
                    INNER JOIN `cnx_logger_biomimic_type` biotype
                    ON biotype.`biomimic_id`=log.`biomimic_id`
-                   INNER JOIN `cnx_logger_properties` prop
-                   ON prop.`prop_id`=log.`prop_id`
-                   WHERE biotype.biomimic_type=\'%s\'""" % query_dict['biomimic_type']	
-	
-	
-	query = """SELECT DISTINCT geo.location
-                   FROM `cnx_logger` log
-                   INNER JOIN `cnx_logger_biomimic_type` biotype
-                   ON  biotype.`biomimic_id`=log.`biomimic_id`
                    INNER JOIN `cnx_logger_geographics` geo
-                   ON geo.`geo_id`=log.`geo_id` """
+                   ON geo.`geo_id`=log.`geo_id`                   
+		   INNER JOIN `cnx_logger_properties` prop
+                   ON prop.`prop_id`=log.`prop_id` """
         where_condition = self.build_where_condition(query_dict)
         cursor.execute(query + where_condition + " ORDER BY 1 ASC")
         result = cursor.fetchall()
@@ -134,7 +111,8 @@ class DbConnect(object):
         """Fetches Distinct Wave Exp for selected biomimic type, country,
             state_province, location, zones and sub_zones"""
         cursor = self.connection.cursor()
-        query = """SELECT DISTINCT prop.wave_exp FROM `cnx_logger` log
+        query = """SELECT DISTINCT prop.wave_exp 
+		   FROM `cnx_logger` log
                    INNER JOIN `cnx_logger_biomimic_type` biotype
                    ON biotype.`biomimic_id`=log.`biomimic_id`
                    INNER JOIN `cnx_logger_geographics` geo
@@ -235,8 +213,6 @@ class DbConnect(object):
         where = (" WHERE biotype.`biomimic_type`=\'%s\'") % query_dict['biomimic_type']
         if query_dict.get('country') is not None:
             where += " AND geo.`country`=\'%s\'" % (query_dict['country'])
-        if query_dict.get('state_province') is not None:
-            where += " AND geo.`state_province`=\'%s\'" % (query_dict['state_province'])
         if query_dict.get('location') is not None:
             where += " AND geo.`location`=\'%s\'" % (query_dict['location'])
         if (query_dict.get('zone') is not None) and (query_dict.get('zone') != 'All'):
