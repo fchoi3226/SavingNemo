@@ -55,7 +55,7 @@ def queryDb(value_type, value):
     """Query Database to get options for each drop-down menu"""
     result, countRecords, minDate, maxDate = None, None, None, None
     db_connection = DbConnect(current_app.config)
-    keyList = ['biomimic_type', 'country', 'state_province', 'location', 'zone', 'sub_zone', \
+    keyList = ['biomimic_type', 'country', 'location', 'zone', 'sub_zone', \
                 'wave_exp', 'start_date', 'end_date', 'output_type', 'analysis_type']
     # delete all keys in session variable "query" after the selected field
     for key in keyList[keyList.index(value_type) + 1:]:
@@ -66,15 +66,10 @@ def queryDb(value_type, value):
               db_connection.fetch_distinct_countries_and_zones(session['query'])
     elif value_type == "country":
         result, countRecords, minDate, maxDate = \
-                        db_connection.fetch_distinct_states(session['query'])
-    elif value_type == "state_province":
-        result, countRecords, minDate, maxDate = \
                         db_connection.fetch_distinct_locations(session['query'])
     elif value_type == "location":
-        # location field doesn't have any associated dynamic behavior
-        # except for fetching metadata.
-        countRecords, minDate, maxDate = \
-                        db_connection.fetch_metadata(session['query'])
+        result, countRecords, minDate, maxDate = \
+                        db_connection.fetch_distinct_zones(session['query'])
     elif value_type == "zone":
         result, countRecords, minDate, maxDate = \
                         db_connection.fetch_distinct_sub_zones(session['query'])
@@ -91,7 +86,6 @@ def submit_query():
     query = dict()
     query["biomimic_type"] = form.get("biomimic_type")[0]
     query["country"] = form.get("country")[0]
-    query["state_province"] = form['state_province'][0]
     query["location"] = form['location'][0]
     query["zone"] = form['zone'][0]
     query["sub_zone"] = form['sub_zone'][0]
@@ -128,7 +122,7 @@ def download():
     else:
         time_title = "Timestamp"
     header = [("Output type", "Logger Type", "Country", "District", "Site", "Reef", "Reef Location", "Depth"), 
-                [query["output_type"], query["biomimic_type"], query["country"], query["state_province"], query["location"],  query["zone"],  query["sub_zone"],  query["wave_exp"]], 
+                [query["output_type"], query["biomimic_type"], query["country"], query["location"],  query["zone"],  query["sub_zone"],  query["wave_exp"]], 
                 (time_title, "Temperature")]
     query_results = header + db_connection.get_query_raw_results(session['db_query'])
     db_connection.close()
