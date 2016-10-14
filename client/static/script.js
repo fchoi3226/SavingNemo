@@ -2,8 +2,6 @@ $(function() {
     $('#dropdown_menu_biomimic_type').change( function () {
         biomimic_type = $("#dropdown_menu_biomimic_type option:selected").text();
         $('#dropdown_menu_country_name').empty();
-        $('#dropdown_menu_state_name').empty();
-        $("#dropdown_menu_state_name").prop('disabled' , true);
         $('#dropdown_menu_location_name').empty();
         $('#dropdown_menu_location_name').prop('disabled' , true);
         $('#dropdown_menu_zone_name').empty();
@@ -31,7 +29,6 @@ $(function() {
         .done(function(data){    
             var result = data["result"]
             var country_list = result["country"]
-            var zone_list = result["zone"]
             // loading end
             $("#spinner-biomimic").hide();
             // update metadata field
@@ -58,18 +55,11 @@ $(function() {
             $.each(country_list, function(index, country){
                 $("#dropdown_menu_country_name").append('<option value=\"' + country + '\">' + country + '</option>')
             });
-            // update zone field
-            $("#dropdown_menu_zone_name").append('<option value="">Please select Reef</option>')
-            $("#dropdown_menu_zone_name").append('<option value="1">All</option>')
-            $.each(zone_list, function(index, zone){
-                $("#dropdown_menu_zone_name").append('<option value=\"' + zone + '\">' + zone + '</option>')
-            });
         });
     });
 
     $('#dropdown_menu_country_name').change( function () {
         country = $("#dropdown_menu_country_name option:selected").val();
-        $('#dropdown_menu_state_name').empty();
         $('#dropdown_menu_location_name').empty();
         $('#dropdown_menu_location_name').prop('disabled' , true);
         $('#dropdown_menu_sub_zone_name').empty();
@@ -107,58 +97,6 @@ $(function() {
             }
             var query_field2_selected = $("#dropdown_menu_country_name option:selected").text()
             if (query_field2_selected == "Please select Country Name"){
-                $("#dropdown_menu_state_name").prop('disabled' , true);
-            }
-            else{
-                $("#dropdown_menu_state_name").prop('disabled' , false);
-            }
-            // update state_province field
-            var result = data["result"]
-            $("#dropdown_menu_state_name").append('<option value="">Please select District Name</option>')
-            $.each(result, function(index, state_province) {
-                $("#dropdown_menu_state_name").append('<option value=\"' + state_province + '\">' + state_province + '</option>')
-            });
-        });
-    });
-    
-    $('#dropdown_menu_state_name').change( function () {
-        state_province = $("#dropdown_menu_state_name option:selected").text();
-        $('#dropdown_menu_location_name').empty();
-        $('#dropdown_menu_sub_zone_name').empty();
-        $('#dropdown_menu_zone_name').prop('disabled' , true);
-        $('#dropdown_menu_sub_zone_name').prop('disabled' , true);
-        $('#dropdown_menu_wave_exp_name').empty()
-        $('#dropdown_menu_wave_exp_name').prop('disabled' , true);
-        $("#dropdown_menu_output_type_name").prop('disabled' , true);
-        $("#date_pick_from").datepicker('setDate', null);
-        $("#date_pick_from").prop('disabled' , true);
-        $("#date_pick_to").datepicker('setDate', null);
-        $("#date_pick_to").prop('disabled' , true);
-        $('#date-checkbox').prop('checked' , false);
-        $("#frequency-select").empty()
-        $('#dropdown_menu_output_type_name').prop('selectedIndex', "Raw");
-        $('#dropdown_menu_output_type_name').prop('disabled' , true);
-        $("#spinner-state").show();
-        $.getJSON('/_parse_data', {
-            select_type: "state_province",
-            select_value: state_province
-            })
-        .done(function(data) {
-            $("#spinner-state").hide();            
-            // update metadata field
-            $('#selected-metadata').empty();
-            if (data["countRecords"] != null){                
-                $('#selected-metadata').removeClass('alert-danger');
-                $('#selected-metadata').addClass('alert-success');
-                $('#selected-metadata').append('<strong>' + data["countRecords"] + ' Records Found</strong>' + '<br>Min. Date Range: ' + data["minDate"] + '<br>Max. Date Range: ' + data["maxDate"]);
-            }
-            else{
-                $('#selected-metadata').removeClass('alert-success');
-                $('#selected-metadata').addClass('alert-danger');
-                $('#selected-metadata').append('<strong>Zero Records Found for Current Selection!</strong>');   
-            }
-            var query_field3_selected = $("#dropdown_menu_state_name option:selected").text()
-            if (query_field3_selected == "Please select District Name"){
                 $("#dropdown_menu_location_name").prop('disabled' , true);
             }
             else{
@@ -172,7 +110,7 @@ $(function() {
             });
         });
     });
-    
+     
     $('#dropdown_menu_location_name').change( function () {
         $("#date_pick_from").datepicker('setDate', null);
         $("#date_pick_from").prop('disabled' , true);
